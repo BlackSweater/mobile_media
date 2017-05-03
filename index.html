@@ -40,8 +40,10 @@
             </datalist>
         </form>
         <button onclick="submit">Submit</button>
-        <button onclick="retrieve">Retrieve</button>
         <p>如果使用Chrome较新的版本，请使用在线版</p><a href="https://blacksweater.github.io/mobile_media/">Github在线版</a>
+        <div id="alertTime"></div>
+        <button onclick="startWorker()">开始 Worker</button>
+        <button onclick="stopWorker()">停止 Worker</button>
     </div>
     <script type="text/javascript">
     var submitAble = false;
@@ -51,7 +53,15 @@
         alert("Your browser doesn't support localStorage, try Chrome or Firefox!");
     }
 
-
+    document.getElementById("username").value = localStorage.getItem("username");
+    document.getElementById("usertel").value = localStorage.getItem("usertel");
+    document.getElementById("usermail").value = localStorage.getItem("usermail");
+    document.getElementById("Minzu").value = localStorage.getItem("Minzu");
+    document.getElementById("Jiguan").value = localStorage.getItem("Jiguan");
+    document.getElementById("userbirth").value = localStorage.getItem("userbirth");
+    document.getElementById("userChara").value = localStorage.getItem("userChara");
+    document.getElementById("usercollege").value = localStorage.getItem("usercollege");
+    document.getElementById("Xueli").value = localStorage.getItem("Xueli");
 
     var username = document.getElementById("username").value;
     var usertel = document.getElementById("usertel").value;
@@ -64,29 +74,36 @@
     var Xueli = document.getElementById("Xueli").value;
 
     function submit() {
-        if (submitAble) {
-            localStorage.setItem("username", username);
-            localStorage.setItem("usertel", usertel);
-            localStorage.setItem("usermail", usermail);
-            localStorage.setItem("Minzu", Minzu);
-            localStorage.setItem("Jiguan", Jiguan);
-            localStorage.setItem("userbirth", userbirth);
-            localStorage.setItem("userChara", userChara);
-            localStorage.setItem("usercollege", usercollege);
-            localStorage.setItem("Xueli", Xueli);
+        localStorage.setItem("username", document.getElementById("username").value);
+        localStorage.setItem("usertel", usertel);
+        localStorage.setItem("usermail", usermail);
+        localStorage.setItem("Minzu", Minzu);
+        localStorage.setItem("Jiguan", Jiguan);
+        localStorage.setItem("userbirth", userbirth);
+        localStorage.setItem("userChara", userChara);
+        localStorage.setItem("usercollege", usercollege);
+        localStorage.setItem("Xueli", Xueli);
+    }
+
+    var w;
+
+    function startWorker() {
+        if (typeof(Worker) !== "undefined") {
+            if (typeof(w) == "undefined") {
+
+                w = new Worker("demo_workers.js");
+
+            }
+            w.onmessage = function(event) {
+                document.getElementById("alertTime").innerHTML = event.data;
+            };
+        } else {
+            document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Workers...";
         }
     }
 
-    function retrieve() {
-        document.getElementById("username").value = localStorage.getItem("username");
-        document.getElementById("usertel").value = localStorage.getItem("usertel");
-        document.getElementById("usermail").value = localStorage.getItem("usermail");
-        document.getElementById("Minzu").value = localStorage.getItem("Minzu");
-        document.getElementById("Jiguan").value = localStorage.getItem("Jiguan");
-        document.getElementById("userbirth").value = localStorage.getItem("userbirth");
-        document.getElementById("userChara").value = localStorage.getItem("userChara");
-        document.getElementById("usercollege").value = localStorage.getItem("usercollege");
-        document.getElementById("Xueli").value = localStorage.getItem("Xueli");
+    function stopWorker() {
+        w.terminate();
     }
     </script>
 </body>
