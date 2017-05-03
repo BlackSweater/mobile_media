@@ -40,7 +40,8 @@
             </datalist>
         </form>
         <button onclick="submit">Submit</button>
-        <p>如果使用Chrome较新的版本，请使用在线版</p><a href="">Github在线版</a>
+        <button onclick="retrieve">Retrieve</button>
+        <p>如果使用Chrome较新的版本，请使用在线版</p><a href="https://blacksweater.github.io/mobile_media/">Github在线版</a>
     </div>
     <script type="text/javascript">
     var submitAble = false;
@@ -50,15 +51,7 @@
         alert("Your browser doesn't support localStorage, try Chrome or Firefox!");
     }
 
-    document.getElementById("username").value = localStorage.getItem("username");
-    document.getElementById("usertel").value = localStorage.getItem("usertel");
-    document.getElementById("usermail").value = localStorage.getItem("usermail");
-    document.getElementById("Minzu").value = localStorage.getItem("Minzu");
-    document.getElementById("Jiguan").value = localStorage.getItem("Jiguan");
-    document.getElementById("userbirth").value = localStorage.getItem("userbirth");
-    document.getElementById("userChara").value = localStorage.getItem("userChara");
-    document.getElementById("usercollege").value = localStorage.getItem("usercollege");
-    document.getElementById("Xueli").value = localStorage.getItem("Xueli");
+
 
     var username = document.getElementById("username").value;
     var usertel = document.getElementById("usertel").value;
@@ -82,6 +75,18 @@
             localStorage.setItem("usercollege", usercollege);
             localStorage.setItem("Xueli", Xueli);
         }
+    }
+
+    function retrieve() {
+        document.getElementById("username").value = localStorage.getItem("username");
+        document.getElementById("usertel").value = localStorage.getItem("usertel");
+        document.getElementById("usermail").value = localStorage.getItem("usermail");
+        document.getElementById("Minzu").value = localStorage.getItem("Minzu");
+        document.getElementById("Jiguan").value = localStorage.getItem("Jiguan");
+        document.getElementById("userbirth").value = localStorage.getItem("userbirth");
+        document.getElementById("userChara").value = localStorage.getItem("userChara");
+        document.getElementById("usercollege").value = localStorage.getItem("usercollege");
+        document.getElementById("Xueli").value = localStorage.getItem("Xueli");
     }
     </script>
 </body>
